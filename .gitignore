@@ -130,6 +130,3 @@ dmypy.json
 
 # Configuration
 configuration.json
-
-# HTMX
-static/htmx.js
