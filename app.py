@@ -5,6 +5,7 @@ from utils import (
     generate_secret_key,
     load_configuration
 )
+from blueprints import index_blueprint
 
 app = Flask(__name__)
 
@@ -14,7 +15,4 @@ load_configuration(app)
 database.init_app(app)
 migrate = Migrate(app, database)
 
-
-@app.route("/")
-def hello():
-    return "Hello, world!"
+app.register_blueprint(index_blueprint)
