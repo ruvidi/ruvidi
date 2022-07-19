@@ -1,0 +1,5 @@
+<div class="upload-card" hx-get="/upload_status/{{ video.id }}" hx-trigger="every 10s" hx-swap="innerHTML">
+    <p>Title: {{ video.title }}</p>
+    <p>Description: {{ video.description }}</p>
+    <progress value="{{ transcode_data.progress }}" max="100">{{ transcode_data.progress }}%</progress>
+</div>

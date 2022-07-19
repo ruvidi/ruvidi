@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <form 
+        class="upload-card"
+        hx-post="/upload"
+        hx-encoding="multipart/form-data"
+        hx-swap="outerHTML"
+    >
+        <input name="title">
+        <input name="description">
+        <input type="file" id="video" name="video">
+        <button>Submit</button>
+    </form>
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="/static/upload.css">
+{% endblock %}

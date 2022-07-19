@@ -1,7 +1,6 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <!-- Most popular video of the day -->
     <section class="popular-video">
         <h3>Самое популярное видео на сегодня</h4>
         {% if most_popular_video %}
@@ -9,7 +8,7 @@
                 <source src="{{ most_popular_video.webm_url }}" type="video/webm">
                 <source src="{{ most_popular_video.mp4_url }}" type="video/mp4">
 
-                Простите, но браузер не поддерживает HTML5 видео.
+                Простите, но ваш браузер не поддерживает HTML5 видео.
             </video>
         {% else %}
             <h4>Пока что, у нас нету такого ролика!</h5>
