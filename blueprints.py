@@ -1,8 +1,7 @@
-import json
 from uuid import uuid1
 from flask import abort, request, Blueprint, render_template, current_app
 from database import database
-from models import Video
+from models import Video, Comment
 from redis_queue import (
     transcode,
     redis_queue
@@ -20,6 +19,21 @@ def index():
         most_popular_video = None
 
     return render_template("index.html", most_popular_video=most_popular_video)
+
+
+comment_blueprint = Blueprint("comment_blueprint", "comment_blueprint", url_prefix='/comments')
+
+
+@comment_blueprint.post('/<int:video_id>')
+def add_comment(video_id: int):
+    comment = Comment(video_id, request.form['comment'])
+
+    database.session.add(comment)
+    database.session.commit()
+
+    video = Video.query.get(video_id)
+
+    return render_template("comments.html", comments=video.comments)
 
 
 upload_blueprint = Blueprint("upload_blueprint", "upload_blueprint", url_prefix='/upload')

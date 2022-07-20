@@ -10,7 +10,8 @@ from utils import (
 )
 from blueprints import (
     index_blueprint,
-    upload_blueprint
+    upload_blueprint,
+    comment_blueprint
 )
 
 app = Flask(__name__, "/static")
@@ -26,3 +27,4 @@ redis_queue.init_app(app)
 
 app.register_blueprint(index_blueprint)
 app.register_blueprint(upload_blueprint)
+app.register_blueprint(comment_blueprint)

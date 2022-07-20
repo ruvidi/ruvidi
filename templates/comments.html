@@ -1,0 +1,8 @@
+<div class="comments" id="comments">
+    {% for comment in comments %}
+        <p>
+            <p>{{ comment.text }}</p>
+            <p>{{ comment.created_date }}</p>
+        </p>
+    {% endfor %}
+</div>

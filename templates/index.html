@@ -11,6 +11,23 @@
 
             <p><h3>{{ most_popular_video.title }}</h4></p>
             <p>{{ most_popular_video.description }}</p>
+
+            <form 
+                hx-post="/comments/{{ most_popular_video.id }}"
+                hx-target="#comments"
+            >
+                <input name="comment">
+                <button>Submit</button>
+            </form>
+
+            <div class="comments" id="comments">
+                {% for comment in most_popular_video.comments %}
+                    <p>
+                        <p>{{ comment.text }}</p>
+                        <p>{{ comment.created_date }}</p>
+                    </p>
+                {% endfor %}
+            </div>
         {% else %}
             <h3>Пока что, у нас нету такого ролика!</h5>
         {% endif %}
