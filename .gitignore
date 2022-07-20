@@ -130,3 +130,7 @@ dmypy.json
 
 # Configuration
 configuration.json
+
+# Video content
+static/sources/
+tmp/

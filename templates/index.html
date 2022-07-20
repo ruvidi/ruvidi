@@ -2,16 +2,17 @@
 
 {% block content %}
     <section class="popular-video">
-        <h3>Самое популярное видео на сегодня</h4>
+        <h2>Самое популярное видео на сегодня</h4>
         {% if most_popular_video %}
             <video controls>
-                <source src="{{ most_popular_video.webm_url }}" type="video/webm">
                 <source src="{{ most_popular_video.mp4_url }}" type="video/mp4">
-
                 Простите, но ваш браузер не поддерживает HTML5 видео.
             </video>
+
+            <p><h3>{{ most_popular_video.title }}</h4></p>
+            <p>{{ most_popular_video.description }}</p>
         {% else %}
-            <h4>Пока что, у нас нету такого ролика!</h5>
+            <h3>Пока что, у нас нету такого ролика!</h5>
         {% endif %}
     </section>
 {% endblock %}
