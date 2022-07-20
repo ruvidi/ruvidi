@@ -1,6 +1,10 @@
-<div class="upload-card" hx-get="/upload/status/{{ video.id }}" hx-trigger="every 10s" hx-swap="innerHTML">
-    <p>Title: {{ video.title }}</p>
-    <p>Description: {{ video.description }}</p>
+<div hx-get="/upload/status/{{ video.id }}" hx-trigger="every 10s" hx-swap="innerHTML">
+    {% if video.thumbnail_url %}
+        <img src="{{ video.thumbnail_url }}">
+    {% else %}
+        <img src="/static/img/no_thumbnail.jpeg">
+    {% endif %}
+
     {% if is_processing %}
         <p>Video is processing</p>
     {% else %}

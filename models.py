@@ -7,6 +7,7 @@ class Video(database.Model):
     description = database.Column(database.String(500), nullable=True)
     mp4_url = database.Column(database.String(100), nullable=True)
     om_url = database.Column(database.String(100), nullable=True) # for old mobiles (low 3gp format)
+    thumbnail_url = database.Column(database.String(100), nullable=True)
     public = database.Column(database.Boolean)
     views = database.Column(database.Integer)
     rq_id = database.Column(database.String(100), nullable=True)

@@ -3,7 +3,10 @@ from uuid import uuid1
 from flask import abort, request, Blueprint, render_template, current_app
 from database import database
 from models import Video
-from redis_queue import transcode, redis_queue
+from redis_queue import (
+    transcode,
+    redis_queue
+)
 
 index_blueprint = Blueprint("index_blueprint", "index_blueprint", url_prefix='/')
 
@@ -43,7 +46,7 @@ def upload():
 
         database.session.commit()
 
-        return render_template("upload_status.html", video=video, is_processing=True)
+        return render_template("upload_post.html", video=video, is_processing=True)
     return render_template("upload.html")
 
 
@@ -55,7 +58,4 @@ def upload_status(id: int):
         return abort(404)
     
     job = redis_queue.get_queue("default").fetch_job(video.rq_id)
-    
-    is_processing = False if job.result == None else True
-    
-    return render_template("upload_status.html", video=video, is_processing=is_processing)
+    return render_template("upload_status.html", video=video, is_processing=not job.result)

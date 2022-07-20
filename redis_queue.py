@@ -88,6 +88,19 @@ def _transcode_3gp(filepath):
     return om_folder + om_name
 
 
+def _create_thumbnail(filepath):
+    thumbnail_folder, thumbnail_name = _source_path_gen("jpg")
+
+    (
+        ffmpeg
+        .input(filepath, ss=0.1)
+        .filter('scale', -2, 90)
+        .output(thumbnail_folder + thumbnail_name, vframes=1)
+        .run()
+    )
+    return thumbnail_folder + thumbnail_name
+
+
 @redis_queue.job("default", "10m")
 def transcode(src, video_id):
     video_resolution = _get_video_resolution(src)
@@ -102,10 +115,17 @@ def transcode(src, video_id):
     if not video:
         return
 
+    if not video.thumbnail_url:
+        video.thumbnail_url = "/" + _create_thumbnail(src)
+        database.session.commit()
+
     if not video.mp4_url:
-        video.mp4_url = _transcode_mp4(src, width, height)
+        video.mp4_url = "/" + _transcode_mp4(src, width, height)
 
     if not video.om_url:
-        video.om_url = _transcode_3gp(src)
+        video.om_url = "/" + _transcode_3gp(src)
 
     database.session.commit()
+
+    os.remove(src)
+    return video_id
